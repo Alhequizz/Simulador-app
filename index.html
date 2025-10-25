@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Orbit Explorer Verse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Orbit Explorer Verse</h1>
+        <p>Um simulador interativo de órbitas planetárias</p>
+    </header>
+
+    <div id="main-container">
+        <div id="sidebar">
+            <h3>Ativar Planetas</h3>
+            <ul id="planet-list" class="planet-toggle-list"></ul>
+            <div class="sidebar-section">
+                <h3>Estrela</h3>
+                <div class="control-group">
+                    <label for="massInput">Massa da Estrela (x Sol)</label>
+                    <input type="number" id="massInput" value="1.0" step="0.1" min="0.1">
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Planeta Customizado</h3>
+                <div class="control-group">
+                    <label for="pInput">Semi-latus Rectum (p)<span class="tooltip-text">Define o 'tamanho' ou 'largura' da órbita no foco.</span></label>
+                    <input type="number" id="pInput" value="400" min="1">
+                </div>
+                <div class="control-group" style="margin-top: 10px;">
+                    <label for="eInput">Excentricidade (e)<span class="tooltip-text">Define a 'forma' da órbita. 0=círculo, <1=elipse, 1=parábola, >1=hipérbole.</span></label>
+                    <input type="number" id="eInput" value="0.6" step="0.01" min="0">
+                </div>
+                <ul class="planet-toggle-list" style="margin-top: 15px;">
+                    <li><input type="checkbox" id="custom" data-planet="custom"><label for="custom">Ativar Planeta Customizado</label></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Planetas Ativos</h3>
+                <div id="active-planets-list"></div>
+            </div>
+        </div>
+        <div id="simulation-container">
+            <canvas id="orbitCanvas"></canvas>
+            <div class="controls">
+                <div class="control-group" style="flex-direction: row; gap: 15px;">
+                    <button class="icon-button" id="playPauseBtn" title="Pausar / Continuar"></button>
+                    <button class="icon-button" id="alignPlanetsBtn" title="Alinhar Planetas no Periélio">
+                        <svg viewBox="0 0 24 24"><path d="M4 18h17v-2H4v2zM4 11h17v-2H4v2zM4 4v2h17V4H4z"/></svg>
+                    </button>
+                    <button class="icon-button" id="fitViewBtn" title="Enquadrar Visão">
+                        <svg viewBox="0 0 24 24"><path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"/></svg>
+                    </button>
+                    <button class="icon-button" id="clearAllBtn" title="Limpar Tudo">
+                        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                    </button>
+                </div>
+                <div class="control-group" style="flex-direction: row; gap: 15px;">
+                    <div class="checkbox-group"><input type="checkbox" id="toggleOrbitBtn" checked><label for="toggleOrbitBtn">Órbita</label></div>
+                    <div class="checkbox-group"><input type="checkbox" id="showTrailCheckbox" checked><label for="showTrailCheckbox">Rastro</label></div>
+                    <div class="checkbox-group"><input type="checkbox" id="showFocusCheckbox"><label for="showFocusCheckbox">Foco</label></div>
+                    <div class="checkbox-group"><input type="checkbox" id="showApsidesCheckbox"><label for="showApsidesCheckbox">Apsides</label></div>
+                </div>
+                <div class="control-group">
+                    <label for="timeSpeedSlider">Velocidade: <span id="timeSpeedValue">0.1x</span></label>
+                    <input type="range" id="timeSpeedSlider" min="0.1" max="5" value="0.1" step="0.1" style="width: 120px;">
+                </div>
+                <div class="control-group">
+                     <button id="analyzeKepler2Btn" disabled>Analisar 2ª Lei</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/simulador.js" defer></script>
+</body>
+</html>
